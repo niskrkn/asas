@@ -1,19 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Конвертер температуры</title>
+</head>
+<body>
+
+<h2>Конвертер температуры</h2>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <label for="temperature">Температура:</label>
+    <input type="text" id="temperature" name="temperature" required><br>
+
+    <label for="unit">Выберите единицу измерения:</label>
+    <select id="unit" name="unit" required>
+        <option value="celsius">Цельсий</option>
+        <option value="fahrenheit">Фаренгейт</option>
+    </select><br>
+
+    <input type="submit" name="submit" value="Конвертировать">
+</form>
+
 <?php
-// Заранее заданные логин и пароль
-$correct_username = "user";
-$correct_password = "password";
+// Функция для конвертации температуры из Цельсия в Фаренгейты
+function celsius_to_fahrenheit($celsius) {
+    return ($celsius * 9/5) + 32;
+}
 
-// Проверяем, была ли отправлена форма
+// Функция для конвертации температуры из Фаренгейтов в Цельсии
+function fahrenheit_to_celsius($fahrenheit) {
+    return ($fahrenheit - 32) * 5/9;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Получаем введенные пользователем логин и пароль
-    $entered_username = $_POST['username'];
-    $entered_password = $_POST['password'];
+    $temperature = $_POST['temperature'];
+    $unit = $_POST['unit'];
 
-    // Проверяем совпадение введенных данных с заранее заданными
-    if ($entered_username === $correct_username && $entered_password === $correct_password) {
-        echo "Добро пожаловать, $correct_username!";
-    } else {
-        echo "Ошибка входа. Пожалуйста, проверьте введенные данные.";
+    if ($unit == "celsius") {
+        $converted_temperature = celsius_to_fahrenheit($temperature);
+        echo "Температура в градусах Фаренгейта: $converted_temperature °F";
+    } elseif ($unit == "fahrenheit") {
+        $converted_temperature = fahrenheit_to_celsius($temperature);
+        echo "Температура в градусах Цельсия: $converted_temperature °C";
     }
 }
 ?>
+
+</body>
+</html>
