@@ -1,25 +1,19 @@
-
-
 <?php
-// Обработка отправленных данных и вывод их на экран
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $age = $_POST['age'];
-  
-    echo "<h2>Ваши данные:</h2>";
-    echo "Имя: " . $name . "<br>";
-    echo "Возраст: " . $age . "<br>";
-    
+// Заранее заданные логин и пароль
+$correct_username = "user";
+$correct_password = "password";
 
-    // Проверка возраста на принадлежность к диапазону 10-15
-    if ($age >= 10 && $age <= 15) {
-        echo "Статус: Начинающий<br>";
-    if ($age >= 16 && $age <= 20) {
-          echo "Статус: Средний <br>";
-    if ($age >= 21 && $age <= 30) {
-          echo "Статус: Проф <br>";
-    }
-    }
+// Проверяем, была ли отправлена форма
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Получаем введенные пользователем логин и пароль
+    $entered_username = $_POST['username'];
+    $entered_password = $_POST['password'];
+
+    // Проверяем совпадение введенных данных с заранее заданными
+    if ($entered_username === $correct_username && $entered_password === $correct_password) {
+        echo "Добро пожаловать, $correct_username!";
+    } else {
+        echo "Ошибка входа. Пожалуйста, проверьте введенные данные.";
     }
 }
 ?>
